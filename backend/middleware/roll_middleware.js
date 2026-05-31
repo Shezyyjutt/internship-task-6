@@ -1,0 +1,6 @@
+module.exports = (roles = []) => (req,res,next) => {
+if(typeof roles === 'string') roles = [roles];
+if(!req.user) return res.status(401).json({ msg: 'Not authenticated' });
+if(!roles.includes(req.user.role)) return res.status(403).json({ msg: 'Forbidden' });
+next();
+};
